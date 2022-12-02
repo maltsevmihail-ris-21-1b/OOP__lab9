@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab9Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -22,13 +23,34 @@ namespace OOP__lab9
 
         public MoneyArray(int size)
         {
-
-            array = new Money[size];
-            for (int i = 0; i < size; i++)
+            var userInteractor = new UserInteractor();
+            int action = userInteractor.GetIntFromUser("1. Случайные числа\n2. Ввод с клавиатуры");
+            switch (action)
             {
-                Money tempMoney = new Money(rnd.Next(20), rnd.Next(100));
-                array[i] = tempMoney;
+                case 1:
+                    {
+                        array = new Money[size];
+                        for (int i = 0; i < size; i++)
+                        {
+                            Money tempMoney = new Money(rnd.Next(20), rnd.Next(100));
+                            array[i] = tempMoney;
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        array = new Money[size];
+                        for (int i = 0; i < size; i++)
+                        {
+                            int rub = userInteractor.GetIntFromUser("Введите количество рублей");
+                            int kop = userInteractor.GetIntFromUser("Введите количество копеек");
+                            Money tempMoney = new Money(rub, kop);
+                            array[i] = tempMoney;
+                        }
+                        break;
+                    }
             }
+            
         }
 
         public MoneyArray(MoneyArray list)
